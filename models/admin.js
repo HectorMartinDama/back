@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 // imports de mongoose
 const mongoose= require('mongoose');

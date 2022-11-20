@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 // imports de mongoose
 const mongoose= require('mongoose');
@@ -31,8 +31,7 @@ const ClienteSchema= Schema({
         required: true
     },  
     f_nacimiento: {
-        type: String,
-        required: false
+        type: String
     },
 
 });

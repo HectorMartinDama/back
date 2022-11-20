@@ -1,16 +1,18 @@
-'use strict';
 
-const express = require('express');
+
 // Variable para inicializar el controlador de admin 
 const adminController = require('../controllers/AdminController');
+const validateLoginAdmin = require('../middleware/validateLoginAdmin');
 
-// Rutas
-// Ruta que gestiona el motodo registro_admin - El registro manda datos al backend por lo tanto sera un metodo post
-const api = express.Router();
+// Creo el router
+const adminRouter = require('express').Router();
 
-// La ruta /registro_admin esta vinculada al controlador adminController al metodo registro_admin
-api.post('/registro_admin', adminController.registro_admin);
-api.post('/login_admin', adminController.login_admin);
+// metodos del router (api).
+adminRouter
+    .post('/registro_admin', adminController.registro_admin)
+    .post('/login_admin', validateLoginAdmin, adminController.login_admin);
 
 
-module.exports = api;
+
+
+module.exports = adminRouter;
