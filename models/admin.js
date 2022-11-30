@@ -1,4 +1,3 @@
-'use strict';
 
 // imports de mongoose
 const mongoose= require('mongoose');
@@ -16,13 +15,9 @@ const AdminSchema= Schema({
     },
     email: {
         type: String,
-        required: true,
-    },
-    password: {
-        type: String,
         required: true
     },
-    rol: {
+    password: {
         type: String,
         required: true
     },

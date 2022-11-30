@@ -1,4 +1,4 @@
-'use strict';
+
 
 // imports de mongoose
 const mongoose= require('mongoose');
@@ -15,8 +15,7 @@ const ClienteSchema= Schema({
         required: true
     },
     pais: {
-        type: String,
-        required: true
+        type: String
     },
     email: {
         type: String,
@@ -27,13 +26,12 @@ const ClienteSchema= Schema({
         required: true
     },
     telefono: {
-        type: String,
-        required: true
+        type: String
     },  
     f_nacimiento: {
         type: String
-    },
+    }
 
 });
 
-module.exports = mongoose.model('cliente',ClienteSchema);
+module.exports = mongoose.model('cliente', ClienteSchema);

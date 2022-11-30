@@ -3,6 +3,7 @@
 const clienteController = require('../controllers/ClienteController');
 const validateLoginClient = require('../middleware/validateLoginClient');
 
+
 // Creo el router
 const clienteRouter = require('express').Router();
 

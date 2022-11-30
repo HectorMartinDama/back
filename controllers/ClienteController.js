@@ -19,7 +19,7 @@ const registro_cliente = (async (req, res)=>{
         telefono: telefono
     });
     const savedClient= client.save(); // lo guarda en la bdd
-    res.status(200).json({createClient: 'OK', message: 'Client create'});
+    res.status(200).json({createClient: 'OK'});
 });
 
 // Login cliente

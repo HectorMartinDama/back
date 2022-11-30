@@ -12,5 +12,5 @@ module.exports = async(req, res, next) =>{
     if(!(user && passwordCorrect)){
         return res.status(401).json({error: 'Email o Contraseña incorrecta.'});
     }
-    next(); // vete a la siguiente ruta.
+    next(); // todo OK, vete a la siguiente ruta.
 };
