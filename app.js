@@ -1,14 +1,16 @@
 
 const express = require('express');
 const app = express();
-const cors= require('cors');
 const mongoose = require('mongoose');
+const cors= require('cors');
 require('dotenv').config();
 // Obtiene los routers
 const clienteRouter = require('./routes/cliente');
 const adminRouter = require('./routes/admin');
-const handleErrors = require('./middleware/handleErrors');
 const productRouter = require('./routes/producto');
+const cuponRouter= require('./routes/cupon');
+// descifra los errores
+const handleErrors = require('./middleware/handleErrors');
 
 // Constantes.
 const PORT= process.env.PORT || 3000;   
@@ -41,6 +43,7 @@ app.use(cors());
 app.use('/api', clienteRouter); // Asigna los routes a las rutas.
 app.use('/api', adminRouter);
 app.use('/api/products', productRouter);
+//app.use('/api/cupones', cuponRouter);
 
 
 module.exports = app;

@@ -12,6 +12,14 @@ const ProductSchema= Schema({
         type: String,
         required: true
     },
+    talla: {
+        type: Number,
+        required: true
+    },
+    sku: { // Numero que indentifica el producto.
+        type: String,
+        required: true
+    },
     portada: {
         type: Object,
         required: true
@@ -21,13 +29,17 @@ const ProductSchema= Schema({
             type: Object
         }
     ],
-    precio: {
+    precioCompra: {
         type: Number,
-        required: false
+        required: true
+    },
+    precioVenta: {
+        type: Number,
+        required: true
     },
     stock: {
         type: Number,
-        required: false
+        required: true
     },
     nventas: {
         type: Number,
@@ -39,22 +51,14 @@ const ProductSchema= Schema({
         default: 0,
         required: true
     },
-    categoria: {
-        type: String,
-        required: false
-    },
-    estado: {
-        type: String,
-        default: 'Almacen', // Es decir no esta en tienda. | Valores (Almacen y Tienda)
+    publicado: {
+        type: Boolean,
+        default: false, // Es decir no esta en tienda. | Valores (true y false)
         required: true
     },
     creado: {
         type: Date,
         default: Date.now, // Fecha y hora en la que se ha añadido el producto.
-        required: true
-    },
-    id: { // Numero que indentifica el producto.
-        type: String,
         required: true
     }
 });
