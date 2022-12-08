@@ -43,7 +43,7 @@ app.use(cors());
 app.use('/api', clienteRouter); // Asigna los routes a las rutas.
 app.use('/api', adminRouter);
 app.use('/api/products', productRouter);
-//app.use('/api/cupones', cuponRouter);
+app.use('/api/cupones', cuponRouter);
 
 
 module.exports = app;

@@ -1,7 +1,7 @@
-const Product= require('../models/products');
+//const Product= require('../models/products');
 
 
-module.exports= async(req, res, next) => {
+/*module.exports= async(req, res, next) => {
     let encontrado= false;
     const idProducto= req.params['id'];
     const productos= await Product.find();
@@ -16,13 +16,7 @@ module.exports= async(req, res, next) => {
         res.status(401).json({error: 'El producto no existe.'});
     }
     next();
-    
-
-
-
-
-
-};
+};*/
 
 
 

@@ -1,24 +1,23 @@
 
 // Variable para inicializar el modelo de cliente en el controlador
 const Cliente = require('../models/cliente');
-const bcrypt = require('bcrypt-nodejs');
+const bcrypt = require('bcrypt');
 const jwtHelper = require('../helpers/jwt');
 
 // Funciones cliente
 const registro_cliente = (async (req, res)=>{
-    const { nombre, apellidos, pais, email, password, telefono } = req.body;
-    const saltRounds= 10;
+    const { nombre, apellidos, email, password } = req.body;
+    // encrypt password
+    const saltRounds = 10;
     const passwordHash= await bcrypt.hash(password, saltRounds);
 
-    const client= new Cliente({
+    const cliente= new Cliente({
         nombre: nombre,
         apellidos: apellidos,
-        pais: pais,
         email: email,
-        password: passwordHash,
-        telefono: telefono
+        password: passwordHash
     });
-    const savedClient= client.save(); // lo guarda en la bdd
+    const savedClient= cliente.save(); // lo guarda en la bdd
     res.status(200).json({createClient: 'OK'});
 });
 

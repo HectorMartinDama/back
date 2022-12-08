@@ -12,10 +12,12 @@ const ProductSchema= Schema({
         type: String,
         required: true
     },
-    talla: {
-        type: Number,
-        required: true
-    },
+    tallas: [
+        {
+            type: String,
+            required: true
+        }
+    ],
     sku: { // Numero que indentifica el producto.
         type: String,
         required: true
