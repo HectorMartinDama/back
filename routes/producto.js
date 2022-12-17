@@ -17,7 +17,8 @@ productRouter
     .put('/actualizarProducto/:id', [PATH, userExtractor], productoController.actualizar_producto)
     .delete('/deleteProduct/:id', userExtractor, productoController.eliminar_producto)
     .put('/agregarImgGaleria/:id', [PATH, userExtractor], productoController.agregar_img_galeria)
-    .put('/eliminarImgGaleria/:id', userExtractor, productoController.eliminar_img_galeria);
+    .put('/eliminarImgGaleria/:id', userExtractor, productoController.eliminar_img_galeria)
+    .get('/obtenerGaleria/:id', userExtractor, productoController.obtener_galeria);
 
 
 module.exports= productRouter;

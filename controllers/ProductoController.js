@@ -30,7 +30,7 @@ const registro_producto= (async (req, res)=>{
 
 // Devuelve todos los productos ordenados por fecha. (Es decir el mas reciente arriba).
 const all_producto= (async (req, res)=>{ 
-    const products= await Product.find(null, {nombre: 1, marca: 1, sku: 1, portada: 1, tallas: 1, _id: 1}).sort([['creado', -1]]);
+    const products= await Product.find(null, {nombre: 1, marca: 1, sku: 1, portada: 1, tallas: 1, galeria: 1, _id: 1}).sort([['creado', -1]]);
     res.status(200).json(products);
 });
 
@@ -55,13 +55,18 @@ const obtener_producto= (async (req, res)=>{
    try{
      // obtengo el (id) desde el parametro de la url es decir (/obtenerProducto/638249bf522c9c1b02807a33).
      const idProducto= req.params['id'];
-
      // recupero el producto de la bdd con el id del parametro de la peticion.
      const producto= await Product.findById({_id: idProducto}, {nombre: 1, marca: 1, portada: 1, sku: 1, tallas: 1, stock: 1, precioCompra: 1, precioVenta:1, tienda: 1, _id: 0});
      res.status(200).json(producto); // devuelve el producto encontrado.
-   }catch(error){
+   }catch(error){ // lo devuelvo en array para ponerlo en la tabla del fronted.
     res.status(422).json({error: error});
    } 
+});
+
+const obtener_galeria= (async (req, res)=>{
+    const idProducto= req.params['id'];
+    const product= await Product.findById({_id: idProducto}, {galeria: 1});
+    res.status(200).json(product.galeria);
 });
 
 const actualizar_producto= (async (req, res)=>{
@@ -120,16 +125,17 @@ const eliminar_producto= (async (req, res)=>{
 
 const agregar_img_galeria= (async (req, res)=>{
     const idProducto= req.params['id'];
-    const imgPath= req.files.imagen.path; 
-    const imagen_name= imgPath.split('/')[2];
     // agrego la img a la galeria del producto.
+    const imgPath= req.files.imagen.path;
+    const imagen_name= imgPath.split('/')[2];
+
     const producto= await Product.findByIdAndUpdate({_id: idProducto}, {
         $push: { galeria: {
             imagen: imagen_name,
             _id: req.body._id // identificador unico para la img
         }}
     });
-    res.status(200).send({data: producto});
+    res.status(200).send({addGalery: 'OK'});
 });
 
 const eliminar_img_galeria= (async (req, res)=>{
@@ -154,5 +160,6 @@ module.exports = {
     actualizar_producto,
     eliminar_producto,
     agregar_img_galeria,
-    eliminar_img_galeria
+    eliminar_img_galeria,
+    obtener_galeria
 };

@@ -12,7 +12,7 @@ const registro_cupon= (async (req, res)=>{
         limite: limite
     });
     const saveCupon= cupon.save();
-    res.status(200).json({createCupon: 'OK'});
+    res.status(200).json({message: 'Cupon creado con exito.'});
 });
 
 

@@ -27,12 +27,20 @@ const login_cliente = (async (req, res) =>{
     // recupero el usuario por el campo correo.
     const user= await Cliente.findOne({email: body.email});
     // asigno el usuario al token.
-    return res.json({token: jwtHelper.createToken(user)});    
+    return res.status(200).json({token: jwtHelper.createToken(user), _id: user._id});    
+});
+
+// Obtener datos
+const obtener_cliente= (async (req, res)=>{
+    const id= req.params['id'];
+    const client= await Cliente.findById({_id: id});
+    res.status(200).send({data: client}); 
 });
 
 
 
 module.exports ={
     registro_cliente,
-    login_cliente
+    login_cliente,
+    obtener_cliente
 };      

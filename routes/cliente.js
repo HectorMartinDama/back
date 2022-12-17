@@ -3,6 +3,7 @@
 const clienteController = require('../controllers/ClienteController');
 const validateLoginClient = require('../middleware/validateLoginClient');
 const validateCreateClient= require('../validators/createClient');
+const userExtractor = require('../middleware/userExtractor');
 
 // Creo el router
 const clienteRouter = require('express').Router();
@@ -12,8 +13,8 @@ const clienteRouter = require('express').Router();
 // La ruta / registro_cliente esta vinculada al controlador clienteController al metodo registro_cliente
 clienteRouter
     .post('/registro_cliente', validateCreateClient, clienteController.registro_cliente)
-    .post('/login_cliente', validateLoginClient, clienteController.login_cliente);
-
+    .post('/login_cliente', validateLoginClient, clienteController.login_cliente)
+    .get('/obtener_cliente/:id', userExtractor, clienteController.obtener_cliente);
 
 
 module.exports = clienteRouter;
