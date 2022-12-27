@@ -54,8 +54,8 @@ const ProductSchema= Schema({
         required: true
     },
     publicado: {
-        type: Boolean,
-        default: false, // Es decir no esta en tienda. | Valores (true y false)
+        type: Boolean, // Es decir no esta en tienda. | Valores (true y false)
+        default: false,
         required: true
     },
     creado: {

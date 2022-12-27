@@ -24,13 +24,13 @@ const registro_producto= (async (req, res)=>{
         portada: portada
     });
     const saveProduct= product.save();
-    res.status(200).json({createProduct: 'OK'});
+    res.status(200).json({message: 'Producto creado con exito.'});
 });
 
 
 // Devuelve todos los productos ordenados por fecha. (Es decir el mas reciente arriba).
 const all_producto= (async (req, res)=>{ 
-    const products= await Product.find(null, {nombre: 1, marca: 1, sku: 1, portada: 1, tallas: 1, galeria: 1, _id: 1}).sort([['creado', -1]]);
+    const products= await Product.find(null, {nombre: 1, marca: 1, sku: 1, portada: 1, tallas: 1, galeria: 1, publicado: 1, _id: 1}).sort([['creado', -1]]);
     res.status(200).json(products);
 });
 

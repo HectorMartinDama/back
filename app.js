@@ -9,6 +9,7 @@ const clienteRouter = require('./routes/cliente');
 const adminRouter = require('./routes/admin');
 const productRouter = require('./routes/producto');
 const cuponRouter= require('./routes/cupon');
+const marcaRouter= require('./routes/marca');
 // descifra los errores
 const handleErrors = require('./middleware/handleErrors');
 
@@ -44,6 +45,7 @@ app.use('/api', clienteRouter); // Asigna los routes a las rutas.
 app.use('/api', adminRouter);
 app.use('/api/products', productRouter);
 app.use('/api/cupones', cuponRouter);
+app.use('/api/marcas', marcaRouter);
 
 
 module.exports = app;

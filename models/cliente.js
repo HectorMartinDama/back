@@ -30,8 +30,10 @@ const ClienteSchema= Schema({
     },  
     f_nacimiento: {
         type: String
+    },
+    genero: {
+        type: String
     }
-
 });
 
 module.exports = mongoose.model('cliente', ClienteSchema);

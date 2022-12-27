@@ -47,7 +47,7 @@ const actualizar_cupon= (async (req, res)=>{
 const eliminar_cupon= (async (req, res)=>{
     const idCupon= req.params['id'];
     const cupon= await Cupon.findByIdAndDelete({_id: idCupon});
-    res.status(200).json({deleteCupon: 'OK'});
+    res.status(200).json({message: 'Cupon elminado con exito.'});
 });
 
 

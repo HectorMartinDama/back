@@ -2,7 +2,7 @@
 const mongoose= require('mongoose');
 const Schema = mongoose.Schema;
 
-// esquema para la coleccion (admin)
+// esquema para la coleccion (cupon)
 const CuponSchema= Schema({
     codigo: {
         type: String,

@@ -6,7 +6,7 @@ const jwtHelper = require('../helpers/jwt');
 
 // Funciones cliente
 const registro_cliente = (async (req, res)=>{
-    const { nombre, apellidos, email, password } = req.body;
+    const { nombre, apellidos, email, password} = req.body;
     // encrypt password
     const saltRounds = 10;
     const passwordHash= await bcrypt.hash(password, saltRounds);
@@ -33,8 +33,42 @@ const login_cliente = (async (req, res) =>{
 // Obtener datos
 const obtener_cliente= (async (req, res)=>{
     const id= req.params['id'];
-    const client= await Cliente.findById({_id: id});
-    res.status(200).send({data: client}); 
+    const client= await Cliente.findById({_id: id}, {__v: 0, password: 0});
+    res.status(200).json({data: client}); 
+});
+
+// actualiza el perfil
+const actualizar_perfil= (async (req, res)=>{
+    const id= req.params['id'];
+    const { nombre, apellidos, telefono, password, f_nacimiento, dni, pais, genero} = req.body;
+
+    // si el usuario ha mandado una contrasena nueva, es decir la ha cambiado.
+    if(password){ // encrypt password
+        const saltRounds = 10;
+        const passwordHash= await bcrypt.hash(password, saltRounds);
+        
+        const client= await Cliente.findByIdAndUpdate({_id: id}, {
+            nombre: nombre,
+            apellidos: apellidos,
+            telefono: telefono,
+            f_nacimiento: f_nacimiento,
+            dni: dni,
+            pais: pais,
+            genero: genero,
+            password: passwordHash
+        });
+        res.status(200).json({message: 'Actualizado correctamente.'});
+    }else{
+        const client= await Cliente.findByIdAndUpdate({_id: id}, {
+            nombre: nombre,
+            apellidos: apellidos,
+            telefono: telefono,
+            f_nacimiento: f_nacimiento,
+            dni: dni,
+            pais: pais,
+            genero: genero
+        });
+    }
 });
 
 
@@ -42,5 +76,6 @@ const obtener_cliente= (async (req, res)=>{
 module.exports ={
     registro_cliente,
     login_cliente,
-    obtener_cliente
+    obtener_cliente,
+    actualizar_perfil
 };      

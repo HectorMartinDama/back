@@ -14,7 +14,8 @@ const clienteRouter = require('express').Router();
 clienteRouter
     .post('/registro_cliente', validateCreateClient, clienteController.registro_cliente)
     .post('/login_cliente', validateLoginClient, clienteController.login_cliente)
-    .get('/obtener_cliente/:id', userExtractor, clienteController.obtener_cliente);
+    .get('/obtener_cliente/:id', userExtractor, clienteController.obtener_cliente)
+    .put('/actualizar_perfil/:id', userExtractor, clienteController.actualizar_perfil);
 
 
 module.exports = clienteRouter;

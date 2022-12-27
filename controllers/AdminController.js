@@ -1,7 +1,6 @@
 
 // Variable para inicializar el modelo de admin en el controlador
 const Admin = require('../models/admin');
-const Client= require('../models/cliente');
 const bcrypt = require('bcrypt');
 const jwtHelper = require('../helpers/jwt');
 
@@ -22,10 +21,9 @@ const registro_admin = (async (req, res) =>{
         telefono: telefono
     });
     const savedAdmin = admin.save(); // lo guarda en la bdd.
-    res.status(200).json({createAdmin: 'OK'});
+    res.status(200).json({message: 'Usuario Admin creado con exito'});
 });
 
-   
 
 // Login admin
 const login_admin = (async (req,res) => {
@@ -33,9 +31,8 @@ const login_admin = (async (req,res) => {
     // recupero el usuario por el correo.
     const user= await Admin.findOne({email: body.email});
     // asignno el usuario al token.
-    res.status(200).json({token: jwtHelper.createToken(user)});        
+    res.status(200).json({token: jwtHelper.createToken(user), _id: user._id});        
 });
-
 
 // Devuelve todos los clientes. 1: devuelve, 0: no devuelve.
 const allClients_admin = (async (req, res)=>{
@@ -43,10 +40,18 @@ const allClients_admin = (async (req, res)=>{
     res.status(200).json(clients);
 });
 
+// Obtener datos
+const obtener_admin= (async (req, res)=>{
+    const id= req.params['id'];
+    const admin= await Admin.findById({_id: id}, {password: 0, rol: 0, __v: 0});
+    res.status(200).send({data: admin}); 
+});
+
 
 
 module.exports={
     registro_admin,
     login_admin,
-    allClients_admin
+    allClients_admin,
+    obtener_admin
 };
