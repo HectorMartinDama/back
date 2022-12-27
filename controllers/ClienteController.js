@@ -47,27 +47,32 @@ const actualizar_perfil= (async (req, res)=>{
         const saltRounds = 10;
         const passwordHash= await bcrypt.hash(password, saltRounds);
         
-        const client= await Cliente.findByIdAndUpdate({_id: id}, {
-            nombre: nombre,
-            apellidos: apellidos,
-            telefono: telefono,
-            f_nacimiento: f_nacimiento,
-            dni: dni,
-            pais: pais,
-            genero: genero,
-            password: passwordHash
+        const client= await Cliente.findByIdAndUpdate({_id: id}, 
+            { $set: { // si no existen los campos en el cliente los crea e inserta.
+                nombre: nombre,
+                apellidos: apellidos,
+                telefono: telefono,
+                f_nacimiento: f_nacimiento,
+                dni: dni,
+                pais: pais,
+                genero: genero,
+                password: passwordHash
+            }
         });
         res.status(200).json({message: 'Actualizado correctamente.'});
     }else{
-        const client= await Cliente.findByIdAndUpdate({_id: id}, {
-            nombre: nombre,
-            apellidos: apellidos,
-            telefono: telefono,
-            f_nacimiento: f_nacimiento,
-            dni: dni,
-            pais: pais,
-            genero: genero
+        const client= await Cliente.findByIdAndUpdate({_id: id}, 
+            { $set: { // si no existen los campos en el cliente los crea e inserta.
+                nombre: nombre,
+                apellidos: apellidos,
+                telefono: telefono,
+                f_nacimiento: f_nacimiento,
+                dni: dni,
+                pais: pais,
+                genero: genero
+            }
         });
+        res.status(200).json({message: 'Actualizado correctamente.'});
     }
 });
 

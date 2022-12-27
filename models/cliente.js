@@ -33,6 +33,9 @@ const ClienteSchema= Schema({
     },
     genero: {
         type: String
+    },
+    dni: {
+        type: String
     }
 });
 
