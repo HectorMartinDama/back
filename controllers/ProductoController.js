@@ -34,21 +34,6 @@ const all_producto= (async (req, res)=>{
     res.status(200).json(products);
 });
 
-// devuelve la portada del producto.
-const obtener_portada= (async (req, res)=>{
-    /* Obtengo la img desde un parametro de la url es decir (/obtenerPortada/81pszDORNtooWlpBFVkH2XDO.jpg -> Nombre de la img) */
-    const img= req.params['img'];
-
-    fs.stat('./uploads/productos/'+img, function(err){
-        if(!err){
-            const path_img= './uploads/productos/'+img;
-            // envio la img al frontend
-            res.status(200).sendFile(path.resolve(path_img));
-        }else{ // si la img no existe, le envio una por defecto.
-            res.status(404).sendFile(path.resolve('./uploads/defaultImage.png'));
-        }
-    });
-});
 
 // recupera la info del producto con el (id) de la bdd.
 const obtener_producto= (async (req, res)=>{
@@ -148,6 +133,52 @@ const eliminar_img_galeria= (async (req, res)=>{
     res.status(200).json({deleteImgGalery: 'OK'});
 });
 
+// --------------- METODOS DE AMBITO PUBLICO -----------------------
+
+// devuelve la portada del producto.
+const obtener_portada= (async (req, res)=>{
+    /* Obtengo la img desde un parametro de la url es decir (/obtenerPortada/81pszDORNtooWlpBFVkH2XDO.jpg -> Nombre de la img) */
+    const img= req.params['img'];
+
+    fs.stat('./uploads/productos/'+img, function(err){
+        if(!err){
+            const path_img= './uploads/productos/'+img;
+            // envio la img al frontend
+            res.status(200).sendFile(path.resolve(path_img));
+        }else{ // si la img no existe, le envio una por defecto.
+            res.status(404).sendFile(path.resolve('./uploads/defaultImage.png'));
+        }
+    });
+});
+
+/* filtra los productos por el campo nombre, en el filtro de la url.
+ http://localhost:4201/api/products/listar_productos_publico?filtroName=noTienda
+ devuelve el producto que se llame "noTienda" en este caso */
+const listar_productos_publico= (async (req, res)=>{
+    const filtro= req.query.filtroName;
+    const productos= await Product.find({nombre: new RegExp(filtro, 'i'), publicado: true}, {__v: 0, precioCompra: 0});
+    res.status(200).json(productos);
+});
+
+const obtener_producto_publico= (async (req, res)=>{
+    const id= req.params['id'];
+    const producto= await Product.findOne({_id: id, publicado: true}, { __v: 0, precioCompra: 0});
+    res.status(200).json(producto);
+});
+
+// devuelve productos segun la marca del parametro url
+const listar_productos_recomendados_publico= (async (req, res)=>{
+    const filtro= req.params['marca'];
+    const productos= await Product.find({marca: filtro, publicado: true}, {nombre: 1, precioVenta: 1, portada: 1, _id: 1}).limit(8);
+    res.status(200).json(productos);
+});
+
+
+
+
+
+
+
 
 
 
@@ -161,5 +192,8 @@ module.exports = {
     eliminar_producto,
     agregar_img_galeria,
     eliminar_img_galeria,
-    obtener_galeria
+    obtener_galeria,
+    listar_productos_publico,
+    obtener_producto_publico,
+    listar_productos_recomendados_publico
 };

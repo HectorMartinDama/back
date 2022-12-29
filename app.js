@@ -10,6 +10,7 @@ const adminRouter = require('./routes/admin');
 const productRouter = require('./routes/producto');
 const cuponRouter= require('./routes/cupon');
 const marcaRouter= require('./routes/marca');
+const carritoRouter= require('./routes/carrito');
 // descifra los errores
 const handleErrors = require('./middleware/handleErrors');
 
@@ -46,6 +47,7 @@ app.use('/api', adminRouter);
 app.use('/api/products', productRouter);
 app.use('/api/cupones', cuponRouter);
 app.use('/api/marcas', marcaRouter);
+app.use('/api/carrito', carritoRouter);
 
 
 module.exports = app;

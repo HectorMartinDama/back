@@ -22,10 +22,17 @@ const eliminar_marca= (async (req, res)=>{
     res.status(200).json({message: 'Marca eliminada con exito.'});
 });
 
+// devuelve todas las marcas
+const obtener_marcas= (async (req, res) =>{
+    const marcas= await Marca.find(null, {nombre: 1, _id: 0});
+    res.status(200).json(marcas);
+});
+
 
 
 module.exports={
     registro_marca,
     all_marcas,
-    eliminar_marca
+    eliminar_marca,
+    obtener_marcas
 };

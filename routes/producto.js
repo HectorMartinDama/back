@@ -18,7 +18,9 @@ productRouter
     .delete('/deleteProduct/:id', userExtractor, productoController.eliminar_producto)
     .put('/agregarImgGaleria/:id', [PATH, userExtractor], productoController.agregar_img_galeria)
     .put('/eliminarImgGaleria/:id', userExtractor, productoController.eliminar_img_galeria)
-    .get('/obtenerGaleria/:id', userExtractor, productoController.obtener_galeria);
-
+    .get('/obtenerGaleria/:id', userExtractor, productoController.obtener_galeria)
+    .get('/listar_productos_publico', productoController.listar_productos_publico)
+    .get('/obtener_producto_publico/:id', productoController.obtener_producto_publico)
+    .get('/listar_productos_recomendados_publico/:marca', productoController.listar_productos_recomendados_publico);
 
 module.exports= productRouter;

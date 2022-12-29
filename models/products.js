@@ -45,8 +45,7 @@ const ProductSchema= Schema({
     },
     nventas: {
         type: Number,
-        default: 0,
-        required: false
+        default: 0
     },
     nestrellas: { // Estrellas de producto.
         type: Number,
