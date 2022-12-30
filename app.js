@@ -3,6 +3,19 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const cors= require('cors');
+
+// socket.io
+const server= require('http').createServer(app);
+const io= require('socket.io')(server, {
+    cors: {origin: '*'} // acepta peticiones desde cualquier direccion
+});
+io.on('connection', function(socket){
+    socket.on('delete-carrito', function(data){
+        io.emit('update-carrito', data);
+        console.log(data);
+    });
+});
+
 require('dotenv').config();
 // Obtiene los routers
 const clienteRouter = require('./routes/cliente');
@@ -25,7 +38,7 @@ mongoose.connect(process.env.MONGO_URI).then(() =>{
 });
 
 // Puesta en marcha del servidor
-app.listen(PORT, ()=>{
+server.listen(PORT, ()=>{
     console.log(`Server running on: http://localhost:${PORT}`);
 });
 
