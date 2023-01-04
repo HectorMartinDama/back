@@ -4,7 +4,7 @@ const productRouter= require('express').Router();
 const userExtractor = require('../middleware/userExtractor');
 const productoController= require('../controllers/ProductoController');
 const multiparty= require('connect-multiparty');
-const PATH= multiparty({uploadDir: './uploads/productos'});
+const PATH= multiparty({uploadDir: './uploads/descuentos'});
 
 
 

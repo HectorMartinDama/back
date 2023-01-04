@@ -5,7 +5,7 @@ module.exports= async(req, res, next) =>{
     const codigo= req.body.codigo;
     const existCodigo= await Cupon.findOne({codigo: codigo});
     if(existCodigo){
-        return res.status(422).json({message: 'Ya existe un cupon con ese codigo.'});
+        return res.status(422).json({error: 'Ya existe un cupon con ese codigo.'});
     }
     next();
 };

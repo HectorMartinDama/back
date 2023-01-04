@@ -10,8 +10,14 @@ const io= require('socket.io')(server, {
     cors: {origin: '*'} // acepta peticiones desde cualquier direccion
 });
 io.on('connection', function(socket){
+    // elimina un producto del carrito in real time
     socket.on('delete-carrito', function(data){
-        io.emit('update-carrito', data);
+        io.emit('update-carrito-delete', data);
+        console.log(data);
+    });
+    // añade un producto al carrito in real time
+    socket.on('add-carrito', function(data){
+        io.emit('update-carrito-add', data);
         console.log(data);
     });
 });
@@ -24,6 +30,10 @@ const productRouter = require('./routes/producto');
 const cuponRouter= require('./routes/cupon');
 const marcaRouter= require('./routes/marca');
 const carritoRouter= require('./routes/carrito');
+const direccionRouter= require('./routes/direccion');
+const envioRouter= require('./routes/envio');
+const ventaRouter= require('./routes/venta');
+const descuentoRouter= require('./routes/descuento');
 // descifra los errores
 const handleErrors = require('./middleware/handleErrors');
 
@@ -61,6 +71,10 @@ app.use('/api/products', productRouter);
 app.use('/api/cupones', cuponRouter);
 app.use('/api/marcas', marcaRouter);
 app.use('/api/carrito', carritoRouter);
+app.use('/api/direcciones', direccionRouter);
+app.use('/api/envios', envioRouter);
+app.use('/api/ventas', ventaRouter);
+app.use('/api/descuentos', descuentoRouter);
 
 
 module.exports = app;
