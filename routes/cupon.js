@@ -12,7 +12,7 @@ cuponRouter
     .post('/createCupon', validateCupon, userExtractor, cuponController.registro_cupon)
     .get('/allCupones', userExtractor, cuponController.all_cupones)
     .get('/obtenerCupon/:id', userExtractor, cuponController.obtener_cupon)
-    .put('/actualizaCupon/:id', userExtractor, cuponController.actualizar_cupon)
+    .put('/actualizaCupon/:id', validateCupon ,userExtractor, cuponController.actualizar_cupon)
     .delete('/borrarCupon/:id', userExtractor, cuponController.eliminar_cupon)
     .get('/validarCupon/:cupon', userExtractor, validateCorrectCupon);
 

@@ -41,7 +41,7 @@ const actualizar_cupon= (async (req, res)=>{
         valor: valor,
         limite: limite
     });
-    res.status(200).json({updateCupon: 'OK'});
+    res.status(200).json({message: 'Cupon actualizado con exito.'});
 });
 
 const eliminar_cupon= (async (req, res)=>{

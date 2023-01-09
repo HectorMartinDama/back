@@ -8,7 +8,7 @@ const DescuentoSchema= Schema({
         type: String,
         required: true
     },
-    banner: {
+    banner: { // img del descuento
         type: String,
         required: true
     },
@@ -17,11 +17,11 @@ const DescuentoSchema= Schema({
         required: true
     },
     fecha_inicio: {
-        type: Date,
+        type: String,
         required: true
     },
     fecha_fin: {
-        type: Date,
+        type: String,
         required: true
     },
     creado: {

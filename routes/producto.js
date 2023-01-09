@@ -4,7 +4,7 @@ const productRouter= require('express').Router();
 const userExtractor = require('../middleware/userExtractor');
 const productoController= require('../controllers/ProductoController');
 const multiparty= require('connect-multiparty');
-const PATH= multiparty({uploadDir: './uploads/descuentos'});
+const PATH= multiparty({uploadDir: './uploads/productos'});
 
 
 
@@ -21,6 +21,7 @@ productRouter
     .get('/obtenerGaleria/:id', userExtractor, productoController.obtener_galeria)
     .get('/listar_productos_publico', productoController.listar_productos_publico)
     .get('/obtener_producto_publico/:id', productoController.obtener_producto_publico)
-    .get('/listar_productos_recomendados_publico/:marca', productoController.listar_productos_recomendados_publico);
+    .get('/listar_productos_recomendados_publico/:marca', productoController.listar_productos_recomendados_publico)
+    .get('/get_talla_stock_producto/:id/:talla', productoController.get_talla_stock_producto);
 
 module.exports= productRouter;

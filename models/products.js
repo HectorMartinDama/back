@@ -14,8 +14,8 @@ const ProductSchema= Schema({
     },
     tallas: [
         {
-            type: String,
-            required: true
+            talla: {type: String, required: true},
+            stock: {type: Number, required: true}
         }
     ],
     sku: { // Numero que indentifica el producto.
@@ -39,7 +39,7 @@ const ProductSchema= Schema({
         type: Number,
         required: true
     },
-    stock: {
+    stockTotal: {
         type: Number,
         required: true
     },

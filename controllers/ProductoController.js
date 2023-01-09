@@ -1,26 +1,34 @@
 const Product= require('../models/products');
 const fs = require('fs-extra'); // permite manegar archivos.
 const path= require('path');
+const { default: mongoose, mongo } = require('mongoose');
 
 
 // crea un producto en la bdd.
 const registro_producto= (async (req, res)=>{
-    const { nombre, marca, sku, tallas, stock, precioCompra, precioVenta, publicado} = req.body;
+    const dataProducto = req.body;
+    const tallas= JSON.parse(dataProducto.tallaStockArray);    
+    let stockTotal=0;
+
     // recupero el nombre de la img.
     const imgPath= req.files.portada.path; // uploads/productos/dpdnk12DXeyVz_TdpW2eiCF_.webp
-    // guarda el nombre img en el campo portada.
     const portada= imgPath.split('/')[2]; // dpdnk12DXeyVz_TdpW2eiCF_.webp
+
+    //calculo el stock total
+    tallas.forEach(element =>{
+        stockTotal= stockTotal + parseInt(element.stock);
+    });
 
     // creo el prducto
     const product= new Product({
-        nombre: nombre,
-        marca: marca,
+        nombre: dataProducto.nombre,
+        marca: dataProducto.marca,
         tallas: tallas,
-        sku: sku,
-        stock: stock,
-        publicado: publicado,
-        precioCompra: precioCompra,
-        precioVenta: precioVenta,
+        sku: dataProducto.sku,
+        stockTotal: stockTotal,
+        publicado: dataProducto.publicado,
+        precioCompra: dataProducto.precioCompra,
+        precioVenta: dataProducto.precioVenta,
         portada: portada
     });
     const saveProduct= product.save();
@@ -173,6 +181,28 @@ const listar_productos_recomendados_publico= (async (req, res)=>{
     res.status(200).json(productos);
 });
 
+// https://www.mongodb.com/community/forums/t/how-to-query-an-object-array-and-return-only-objects-that-match-mongo-mongoose/123117
+// obtiene el stock del producto por la talla
+const get_talla_stock_producto= (async (req, res)=>{
+    const id= req.params['id']; // obtengo el id desde el parametro de la url.
+    const talla= req.params['talla'];
+    const producto= await Product.findById({_id: id});
+    let stock;
+
+    producto.tallas.forEach(element =>{
+        if(element.talla == talla){
+            stock= element.stock;
+        }
+    });
+
+
+    res.status(200).json(stock);
+
+
+    });
+
+
+
 
 
 
@@ -195,5 +225,6 @@ module.exports = {
     obtener_galeria,
     listar_productos_publico,
     obtener_producto_publico,
-    listar_productos_recomendados_publico
+    listar_productos_recomendados_publico,
+    get_talla_stock_producto
 };

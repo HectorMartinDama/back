@@ -8,7 +8,11 @@ const PATH= multiparty({uploadDir: './uploads/banners'});
 
 
 descuentoRouter
-    .post('/registro_descuento/', userExtractor, descuentoController.registro_descuento)
-    .get('/listar_descuentos/:filtro?', userExtractor, descuentoController.listar_descuentos)
-    .get('/obtenerPortada/:img', descuentoController.obtener_portada);
-
+    .post('/registro_descuento', [PATH,userExtractor], descuentoController.registro_descuento)
+    .get('/listar_descuentos', userExtractor, descuentoController.listar_descuentos)
+    .get('/obtenerBanner/:img', descuentoController.obtener_banner_descuento)
+    .get('/obtener_descuento/:id', userExtractor, descuentoController.obtener_descuento)
+    .put('/actualizar_descuento/:id', [userExtractor,PATH], descuentoController.actualizar_descuento)
+    .delete('/eliminar_descuento/:id', userExtractor, descuentoController.eliminar_descuento)
+    .get('/obtener_descuento_activo', descuentoController.obtener_descuento_activo);
+module.exports= descuentoRouter;

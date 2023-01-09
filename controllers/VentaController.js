@@ -46,7 +46,6 @@ const registro_compra_cliente= (async (req, res)=>{
     data.nventa= n_venta;
     data.estado= 'procesando';
 
-
     const venta= await Venta.create(data);
 
     detalles.forEach(async element => {
@@ -54,11 +53,20 @@ const registro_compra_cliente= (async (req, res)=>{
         await Dventa.create(element);
         // busco el producto en la bdd y le resto el stock, asi por cada producto comprado.
         const element_producto= await Producto.findById({_id: element.producto});
-        const new_stock= parseInt(element_producto.stock) - 1;
-        await Producto.findByIdAndUpdate({_id: element.producto}, {
-            stock: new_stock
+        // aumento en +1 el numero de ventas
+        const new_nventas= parseInt(element_producto.nventas) + 1;
+        // resto el stock
+        element_producto.tallas.forEach(element2 =>{
+            if(element2.talla == element.talla){
+                element2.stock= parseInt(element2.stock) - 1;
+            }
         });
-        // despues de realizar la compra, limpio el carrito
+        // aplico los cambios
+        await Producto.findByIdAndUpdate({_id: element.producto}, {
+            tallas: element_producto.tallas,
+            nventas: new_nventas
+        });
+        // despues de realizar la compra, elimino el carrito
         await Carrito.remove({cliente: data.cliente});
     });
     res.status(200).json({idVenta: venta._id});

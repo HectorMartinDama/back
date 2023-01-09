@@ -18,7 +18,7 @@ const registro_cliente = (async (req, res)=>{
         password: passwordHash
     });
     const savedClient= cliente.save(); // lo guarda en la bdd
-    res.status(200).json({createClient: 'OK'});
+    res.status(200).json({message: 'OK'});
 });
 
 // Login cliente
