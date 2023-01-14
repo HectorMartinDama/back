@@ -1,8 +1,14 @@
 
 // Variable para inicializar el modelo de admin en el controlador
 const Admin = require('../models/admin');
+const Contacto = require('../models/contacto');
+const Cliente= require('../models/cliente');
+const Direccion= require('../models/direccion');
+const fs = require('fs-extra'); // permite manegar archivos.
+const path= require('path');
 const bcrypt = require('bcrypt');
 const jwtHelper = require('../helpers/jwt');
+const { log } = require('console');
 
 // crea un admin
 const registro_admin = (async (req, res) =>{
@@ -36,7 +42,7 @@ const login_admin = (async (req,res) => {
 
 // Devuelve todos los clientes. 1: devuelve, 0: no devuelve.
 const allClients_admin = (async (req, res)=>{
-    const clients= await Client.find(null, {nombre: 1, apellidos: 1, pais: 1, telefono: 1, _id: 0});
+    const clients= await Cliente.find(null, {nombre: 1, apellidos: 1, email: 1, _id: 1});
     res.status(200).json(clients);
 });
 
@@ -44,7 +50,81 @@ const allClients_admin = (async (req, res)=>{
 const obtener_admin= (async (req, res)=>{
     const id= req.params['id'];
     const admin= await Admin.findById({_id: id}, {password: 0, rol: 0, __v: 0});
-    res.status(200).send({data: admin}); 
+    res.status(200).send(admin); 
+});
+
+const obtener_mensajes_admin= (async (req, res)=>{
+    const mensajes= await Contacto.find().sort({creado: -1});
+    res.status(200).json(mensajes); 
+});
+
+const cerrar_mensaje_admin= (async (req, res)=>{
+    const id= req.params['id'];
+    const contacto= await Contacto.findByIdAndUpdate({_id: id}, {estado: 'Cerrado'});
+    res.status(200).json({message: 'Contacto cerrado.'});
+});
+
+
+const actualizar_nombre_admin= (async (req, res)=>{
+    const id= req.params['id'];
+    const data= req.body.nombre;
+       
+    const admin= await Admin.findByIdAndUpdate({_id: id}, {
+        nombre: data
+    });
+    res.status(200).json({message: 'Cuenta actualizada correctamente.'});
+});
+
+
+const actualizar_imgPerfil_admin= (async (req, res) =>{
+    const id= req.params['id'];
+    const imgPath= req.files.imagenPerfil.path; 
+    const imagenPerfil= imgPath.split('/')[2];
+
+    // actualzo el usuario
+    const admin= await Admin.findByIdAndUpdate({_id: id}, {
+        $set: {
+            imgPerfil: imagenPerfil
+        }
+    });
+    res.status(200).json({message: 'Imagen perfil actualizada.'});
+});
+
+
+const obtener_imgPerfil_admin= (async (req, res) => {
+    const img= req.params['img'];
+
+    fs.stat('./uploads/imgPerfilAdmins/'+img, function(err){
+        if(!err){
+            const path_img= './uploads/imgPerfilAdmins/'+img;
+            // envio la img al frontend
+            res.status(200).sendFile(path.resolve(path_img));
+        }else{ // si la img no existe, le envio una por defecto.
+            res.status(404).sendFile(path.resolve('./uploads/defaultPictureProfile.png'));
+        }
+    });
+});
+
+
+const borrar_cuenta_admin= (async (req, res) => {
+    const id= req.params['id'];
+    const admin= await Admin.findByIdAndDelete({_id: id})
+        .then((result) => {
+            if(!result){
+                return res.status(400).json({message: 'Admin no encontrado.'});
+            }
+            res.status(200).json({message: 'Cuenta eliminada con exito.'});
+        }).catch(err => {
+            res.status(500).json({message: 'No se ha podido eliminar la cuenta.'});
+        });
+});
+
+
+const borrar_cliente_admin= (async (req, res) => {
+    const id= req.params['id'];
+    const cliente= await Cliente.findByIdAndDelete({_id: id});
+    const direcciones= await Direccion.deleteMany({cliente: id});
+    res.status(200).json({message: 'Cliente eliminado con exito.'});
 });
 
 
@@ -53,5 +133,12 @@ module.exports={
     registro_admin,
     login_admin,
     allClients_admin,
-    obtener_admin
+    obtener_admin,
+    obtener_mensajes_admin,
+    cerrar_mensaje_admin,
+    actualizar_nombre_admin,
+    actualizar_imgPerfil_admin,
+    obtener_imgPerfil_admin,
+    borrar_cuenta_admin,
+    borrar_cliente_admin
 };

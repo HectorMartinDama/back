@@ -1,15 +1,17 @@
-
 // imports de mongoose
 const mongoose= require('mongoose');
 const Schema = mongoose.Schema;
 
-// esquema para la coleccion (admin)
-const AdminSchema= Schema({
+const ContactoSchema= Schema({
     nombre: {
-        type: String,
-        required: true // campo obligatorio
+            type: String,
+            required: true
     },
-    apellidos: {
+    asunto: {
+        type: String,
+        required: true
+    },
+    mensaje: {
         type: String,
         required: true
     },
@@ -17,19 +19,19 @@ const AdminSchema= Schema({
         type: String,
         required: true
     },
-    password: {
+    estado: {
         type: String,
         required: true
     },
-    telefono: {
-        type: String,
+    creado: {
+        type: Date,
+        default: Date.now(),
         required: true
-    },
-    imgPerfil: {
-        type: Object
     }
-
 });
 
 // exporta el esquema para que lo puedean utilizar otros archivos JS.
-module.exports = mongoose.model('admin', AdminSchema);
+module.exports = mongoose.model('contacto', ContactoSchema);
+
+
+

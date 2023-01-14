@@ -8,7 +8,8 @@ marcaRouter
     .post('/createMarca', validateMarca, userExtractor, marcaController.registro_marca)
     .get('/allMarcas', userExtractor, marcaController.all_marcas)
     .delete('/borrarMarca/:id', userExtractor, marcaController.eliminar_marca)
-    .get('/obtenerMarcas', marcaController.obtener_marcas);
+    .get('/obtenerMarcas', marcaController.obtener_marcas)
+    .delete('/borrarSeleccionadosMarca/:idMarcas', userExtractor, marcaController.eliminar_seleccionados_marca);
 
 
 

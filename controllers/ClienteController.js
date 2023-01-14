@@ -1,6 +1,11 @@
 
-// Variable para inicializar el modelo de cliente en el controlador
+// Este controlador tiene (el modelo de contacto y cliente)
 const Cliente = require('../models/cliente');
+const Venta = require('../models/venta');
+const Dventa = require('../models/dventa');
+const Contacto = require('../models/contacto');
+const nodemailer = require('nodemailer');
+const smtpTransport = require('nodemailer-smtp-transport');
 const bcrypt = require('bcrypt');
 const jwtHelper = require('../helpers/jwt');
 
@@ -76,6 +81,52 @@ const actualizar_perfil= (async (req, res)=>{
     }
 });
 
+const enviar_mensaje_contacto= (async (req, res)=>{
+    const data= req.body;
+    data.estado= 'Abierto';
+    const contacto= await Contacto.create(data).then(
+        res =>{
+            const transporter = nodemailer.createTransport(smtpTransport({
+                service: 'gmail',
+                host: 'smtp.gmail.com',
+                auth: {
+                user: process.env.GMAIL_ACC,
+                pass: process.env.GMAIL_PASS
+                }
+            }));
+            var mailOptions = {
+                from: process.env.GMAIL_ACC,
+                to: data.email, //venta.cliente.email
+                subject: 'Gracias, mensaje recibido'
+            };
+            transporter.sendMail(mailOptions, function(error, info){
+                if (!error) {
+                    console.log('Email sent: ' + info.response);
+                }
+            });
+        }
+    );
+    res.status(200).json({message: 'Mensaje enviado con exito.'});
+});
+
+
+const obtener_mensajes_abiertos= (async (req, res)=>{
+
+});
+
+const obtener_pedidos_cliente= (async (req, res)=>{
+    const id= req.params['id'];
+    const pedidos= await Venta.find({cliente: id}).sort({creado: -1});
+    res.status(200).json(pedidos);
+});
+
+const obtener_detalle_pedido_cliente= (async (req, res)=>{
+    const id= req.params['id'];
+    const venta= await Venta.findById({_id: id}).populate('direccion').populate('envio');
+    const detalles= await Dventa.find({venta: id}).populate('producto');
+    res.status(200).json({data: venta, detalles: detalles});
+});
+
 
 
 
@@ -84,5 +135,8 @@ module.exports ={
     registro_cliente,
     login_cliente,
     obtener_cliente,
-    actualizar_perfil
+    actualizar_perfil,
+    enviar_mensaje_contacto,
+    obtener_pedidos_cliente,
+    obtener_detalle_pedido_cliente,
 };      

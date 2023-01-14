@@ -159,6 +159,8 @@ const obtener_portada= (async (req, res)=>{
     });
 });
 
+
+
 /* filtra los productos por el campo nombre, en el filtro de la url.
  http://localhost:4201/api/products/listar_productos_publico?filtroName=noTienda
  devuelve el producto que se llame "noTienda" en este caso */
@@ -194,12 +196,20 @@ const get_talla_stock_producto= (async (req, res)=>{
             stock= element.stock;
         }
     });
-
-
     res.status(200).json(stock);
+});
 
 
-    });
+const eliminar_seleccionados_producto= (async (req, res)=>{
+    // separo los ids por comas (234,345,453) a ['234', '345', '453']
+    const ids= req.params['idProductos'].split(',');
+    const productos= await Product.deleteMany({_id: { $in: ids}});
+    res.status(200).json({message: 'Productos eliminadas con exito'});
+});
+
+
+
+/* ----------------------------------------- ------------------------------------- */
 
 
 
@@ -226,5 +236,6 @@ module.exports = {
     listar_productos_publico,
     obtener_producto_publico,
     listar_productos_recomendados_publico,
-    get_talla_stock_producto
+    get_talla_stock_producto,
+    eliminar_seleccionados_producto
 };

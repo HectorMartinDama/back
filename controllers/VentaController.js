@@ -4,7 +4,7 @@ const ejs = require('ejs');
 const nodemailer = require('nodemailer');
 const smtpTransport = require('nodemailer-smtp-transport');
 const path = require('path');
-// Este controlador tiene (el modelo de venta y dventa)
+// Este controlador tiene (el modelo de venta, dventa, envio)
 const Venta= require('../models/venta');
 const Dventa= require('../models/dventa');
 const Producto= require('../models/products');
@@ -38,8 +38,6 @@ const registro_compra_cliente= (async (req, res)=>{
         const new_serie= zfill(parseInt(arr_venta[0])+1, 3);
         n_venta= new_serie + '-000001'; // al ser una nueva serie, resteo el correlativo
        }
-
-
     }
 
     // inserto el numero de venta (nventa)

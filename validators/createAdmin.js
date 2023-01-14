@@ -8,7 +8,7 @@ module.exports= async(req, res, next) =>{
     if(existEmail){
         return res.status(422).json({error: 'Ya existe una cuenta con ese email.'});
     }
-    if(password.length >= 6 && password.length <= 20){
+    if(password.length <= 6 || password.length >= 20){
         return res.status(422).json({error: 'Contrasena entre 6 y 20 caracetres.'});
 
     }

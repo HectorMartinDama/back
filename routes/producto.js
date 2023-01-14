@@ -16,6 +16,7 @@ productRouter
     .get('/obtenerProducto/:id', userExtractor, productoController.obtener_producto)
     .put('/actualizarProducto/:id', [PATH, userExtractor], productoController.actualizar_producto)
     .delete('/deleteProduct/:id', userExtractor, productoController.eliminar_producto)
+    .delete('/borrarSeleccionadosProducto/:idProductos', userExtractor, productoController.eliminar_seleccionados_producto)
     .put('/agregarImgGaleria/:id', [PATH, userExtractor], productoController.agregar_img_galeria)
     .put('/eliminarImgGaleria/:id', userExtractor, productoController.eliminar_img_galeria)
     .get('/obtenerGaleria/:id', userExtractor, productoController.obtener_galeria)
