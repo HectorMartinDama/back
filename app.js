@@ -1,8 +1,9 @@
-
 const express = require('express');
-const app = express();
 const mongoose = require('mongoose');
+const app = express();
 const cors= require('cors');
+// npm
+const { swaggerDocs }= require('./swagger/swagger');
 
 // socket.io
 const server= require('http').createServer(app);
@@ -49,7 +50,8 @@ mongoose.connect(process.env.MONGO_URI).then(() =>{
 
 // Puesta en marcha del servidor
 server.listen(PORT, ()=>{
-    console.log(`Server running on: http://localhost:${PORT}`);
+    console.log(`🚀 Server running on: http://localhost:${PORT}`);
+    swaggerDocs(app, PORT);
 });
 
 

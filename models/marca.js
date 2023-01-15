@@ -19,3 +19,4 @@ module.exports = mongoose.model('marca', MarcaSchema);
 
 
 
+// modelo schema para documentacion de OPEN API
