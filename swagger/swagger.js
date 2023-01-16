@@ -225,6 +225,18 @@ const prueba= {
                     creado: {
                         type: "date"
                     }
+                    },
+                    example: {
+                        cliente: '6391dd0578659e85b54cd402',
+                        destinatario: 'Destinatario Prueba',
+                        dni: '11111111D',
+                        codigoPostal: '28351',
+                        calle: 'c/ prueba Nº2',
+                        provincia: 'Madrid',
+                        ciudad: 'Toledo',
+                        telefono: '2345456789',
+                        principal: false,
+                        creado: '2023-01-02T13:16:58.245+00:00'
                     }
                 },
                 envio: {

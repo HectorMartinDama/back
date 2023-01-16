@@ -80,6 +80,11 @@ cuponRouter.get('/allCupones', userExtractor, cuponController.all_cupones);
  *      responses: 
  *          200: 
  *              description: Devuelve el cupon.
+ *              content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      $ref: #/components/schemas/cupon
  *          500:
  *              description: Token invalido o expirado.
  *          404:
