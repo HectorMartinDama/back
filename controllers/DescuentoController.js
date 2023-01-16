@@ -88,8 +88,14 @@ const actualizar_descuento= (async (req, res)=>{
 
 const eliminar_descuento= (async (req, res)=>{
     const id= req.params['id']; // obtengo el id desde el parametro de la url.
-    const descuento= await Descuento.findByIdAndDelete({_id: id});
-    res.status(200).json({message: 'OK'});
+    const descuento= await Descuento.findByIdAndDelete({_id: id}).then((doc) => {
+        if(!doc){
+            return res.status(404).send({message: 'Descuento no encontrado.'});
+        }
+        return res.status(200).json({message: 'Descuento eliminado con exito.'});
+    }).catch((error) => {
+        return res.status(503).send({message: 'Servidor caido, Intentelo más tarde.'});
+    });
 });
 
 const obtener_descuento_activo= (async (req, res)=>{

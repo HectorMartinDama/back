@@ -178,6 +178,15 @@ const prueba= {
                     creado: {
                         type: "date"
                     }
+                    },
+                    example: {
+                        titulo: 'Promoción Enero',
+                        banner: 'WZUltFWGRjYKonb7xUUY3tjd.webp',
+                        descuento: 20,
+                        fecha_inicio: '1/2/2023',
+                        fecha_fin: '1/7/2023',
+                        creado: '2023-01-08T17:57:13.445+00:00'
+
                     }
                 },
                 direccion: {

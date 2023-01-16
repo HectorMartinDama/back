@@ -68,7 +68,7 @@ cuponRouter.get('/allCupones', userExtractor, cuponController.all_cupones);
  * /cupones/obtenerCupon/{id}:
  *  get:
  *      tags: [cupon]
- *      summary: Elimina una marca por el identificador
+ *      summary: Obtiene un cupon por el identificador
  *      parameters: 
  *          - in: path
  *            name: id
