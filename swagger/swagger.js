@@ -622,6 +622,13 @@ const prueba= {
                     creado: {
                         type: "date"
                     }
+                    },
+                    example: {
+                        codigo: 'bienvenida',
+                        tipo: 'porcentaje',
+                        valor: '10',
+                        limite: '100',
+                        creado: '2022-12-17T13:40:04.910+00:00'
                     }
                 },
                 descuento: {

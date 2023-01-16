@@ -46,8 +46,14 @@ const actualizar_cupon= (async (req, res)=>{
 
 const eliminar_cupon= (async (req, res)=>{
     const idCupon= req.params['id'];
-    const cupon= await Cupon.findByIdAndDelete({_id: idCupon});
-    res.status(200).json({message: 'Cupon elminado con exito.'});
+    const cupon= await Cupon.findByIdAndDelete({_id: idCupon}).then((doc) => {
+        if(!doc){
+            return res.status(404).send({message: 'Cupon no encontrado.'});  
+        }
+        res.status(200).json({message: 'Cupon elminado con exito.'});        
+    }).catch((error) => {
+        return res.status(503).send({message: 'Servidor caido, Intentelo más tarde.'});
+    });
 });
 
 
