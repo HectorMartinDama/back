@@ -1,6 +1,7 @@
 const Envio= require('../models/envio');
 
 
+
 const registro_envio= (async (req, res)=>{
     const data= req.body;
     // creo el tipo de envio

@@ -3,7 +3,7 @@ const swaggerUi= require('swagger-ui-express');
 const path= require('path');
 
 // Metadata info about our API
-const options= {
+/*const options= {
     definition: {
         openapi: '3.0.0',
         info: {
@@ -483,7 +483,7 @@ const options= {
         }
     },
     apis: [`${path.join(__dirname, '../routes/*.js')}`]
-};
+};*/
 
 
 
@@ -496,14 +496,14 @@ const prueba= {
             version: "1.0.0"
         },
         servers: [
-            {url: 'http://localhost:4201'}
+            {url: 'http://localhost:4201/api/'}
         ],
         components: {
             securitySchemes: {
-                beareAuth: {
-                  type: 'http',
-                  scheme: 'bearer'
-                }
+                bearerAuth: {
+                    type: "http",
+                    scheme: "bearer",
+                  }
             },
             schemas: {
                 admin: {
@@ -738,6 +738,10 @@ const prueba= {
                     creado: {
                         type: "date"
                     }
+                    },
+                    example: {
+                        nombre: 'Nike',
+                        creado: '2023-01-14T17:41:09.853+00:00'
                     }
                 },
                 producto: {
@@ -965,7 +969,6 @@ const prueba= {
         ],
     },
     apis: [`${path.join(__dirname, '../routes/*.js')}`]
-
 };
 
 

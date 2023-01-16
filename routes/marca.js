@@ -4,12 +4,140 @@ const marcaController= require('../controllers/MarcaController');
 const validateMarca = require('../validators/validateMarca');
 
 
-marcaRouter
-    .post('/createMarca', validateMarca, userExtractor, marcaController.registro_marca)
-    .get('/allMarcas', userExtractor, marcaController.all_marcas)
-    .delete('/borrarMarca/:id', userExtractor, marcaController.eliminar_marca)
-    .get('/obtenerMarcas', marcaController.obtener_marcas)
-    .delete('/borrarSeleccionadosMarca/:idMarcas', userExtractor, marcaController.eliminar_seleccionados_marca);
+/**
+ * @openapi
+ * /marcas/createMarca:
+ *  post:
+ *      tags: [marca]
+ *      summary: 'Crear una marca.'
+ *      requestBody:
+ *          requiered: true
+ *          content: 
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/marca'
+ *      responses: 
+ *          200: 
+ *              description: 'Devuelve las marcas correctamente.'
+ *          422: 
+ *              description: 'Ya existe una marca con ese nombre.'
+ *          500: 
+ *              description: 'Token no valido o expirado'
+ *      security:
+ *          - bearerAuth: []
+ * 
+ * 
+ */
+marcaRouter.post('/createMarca', validateMarca, userExtractor, marcaController.registro_marca);
+
+/**
+ * @openapi
+ * /marcas/allMarcas:
+ *  get:
+ *      tags: [marca]
+ *      summary: 'Devuelve todas las marcas'         
+ *      responses: 
+ *          200: 
+ *              description: 'Devuelve las marcas correctamente.'
+ *              content: 
+ *              application/json:
+ *                  schema:
+ *                      type: array
+ *                      items: 
+ *                          $ref: '#/components/schemas/marca'
+ *          500: 
+ *              description: 'Token no valido o experado.'
+ *      security:
+ *          - bearerAuth: []
+ */
+marcaRouter.get('/allMarcas', userExtractor, marcaController.all_marcas);
+
+/**
+ * @openapi
+ * /marcas/borrarMarca/{id}:
+ *  delete:
+ *      tags: [marca]
+ *      summary: 'Elimina una marca por el identificador'
+ *      parameters: 
+ *          - in: path
+ *            name: id
+ *            required: true
+ *            description: Identificador marca en BD
+ *            schema:
+ *              type: string
+ *      responses: 
+ *          200: 
+ *              description: 'Marca eliminada con exito.'
+ *          500:
+ *              description: 'Token invalido o expirado.'
+ *          404:
+ *              description: 'Marca no encontrada.'
+ *          503: 
+ *              description: 'Servidor caido, Intentalo màs tarde.'
+ *      security:
+ *          - bearerAuth: []
+ *      
+ *   
+
+ */
+
+marcaRouter.delete('/borrarMarca/:id', userExtractor, marcaController.eliminar_marca);
+
+
+/**
+ * @openapi
+ * /marcas/obtenerMarcas:
+ *  get:
+ *      tags: 
+ *      - marca
+ *      summary: 'Devuelve todas las marcas (publico)'         
+ *      responses: 
+ *          200: 
+ *              description: 'Devuelve las marcas correctamente.'
+ *              content: 
+ *              application/json:
+ *                  schema:
+ *                      type: array
+ *                      items: 
+ *                          $ref: '#/components/schemas/marca'
+ *          500: 
+ *              description: 'Error interno del servidor'
+ */
+marcaRouter.get('/obtenerMarcas', marcaController.obtener_marcas);
+
+
+
+
+/**
+ * @openapi
+ * /marcas/borrarSeleccionadosMarca/{idMarcas}:
+ *  delete:
+ *      tags: [marca]
+ *      summary: 'Elimina varias marcas por el identificador'
+ *      parameters: 
+ *          - in: path
+ *            name: idMarcas
+ *            required: true
+ *            description: Identificadores de las marcas en BD --> (id,id,id,id,id)
+ *            schema:
+ *              type: string
+ *      responses: 
+ *          200: 
+ *              description: 'Marcas eliminadas con exito.'
+ *          500:
+ *              description: 'Token invalido o expirado.'
+ *          404:
+ *              description: 'Marcas no encontradas.'
+ *          503: 
+ *              description: 'Servidor caido, Intentalo màs tarde.'
+ *      security:
+ *          - bearerAuth: []
+ *      
+ *   
+
+ */
+
+marcaRouter.delete('/borrarSeleccionadosMarca/:idMarcas', userExtractor, marcaController.eliminar_seleccionados_marca);
 
 
 

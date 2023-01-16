@@ -19,8 +19,14 @@ const all_marcas= (async (req, res)=>{
 
 const eliminar_marca= (async (req, res)=>{
     const idMarca= req.params['id'];
-    const marca= await Marca.findByIdAndDelete({_id: idMarca});
-    res.status(200).json({message: 'Marca eliminada con exito.'});
+    const marca= await Marca.findByIdAndDelete({_id: idMarca}).then((doc) => {
+        if(!doc){
+            return res.status(404).send({message: 'Marca no encontrada.'});
+        }
+        return res.status(200).json({message: 'Marca eliminada con exito.'});
+    }).catch((error) => {
+        return res.status(503).send({message: 'Servidor caido, Intentelo más tarde.'});
+    });
 });
 
 
