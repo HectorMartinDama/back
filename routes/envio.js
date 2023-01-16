@@ -8,7 +8,7 @@ const validatePrincipalDireccion= require('../validators/validatePrincipalDirecc
  * @openapi
  * /envios/registro_envio:
  *  post:
- *      tags: [envio]
+ *      tags: [envios]
  *      summary: 'Crear un tipo de envio.'
  *      requestBody:
  *          requiered: true
@@ -32,7 +32,7 @@ envioRouter.post('/registro_envio', validatePrincipalDireccion, userExtractor, e
  * @openapi
  * /envios/obtener_tipo_envio:
  *  get:
- *      tags: [envio]
+ *      tags: [envios]
  *      summary: 'Devuelve todas los envios (publico)'         
  *      responses: 
  *          200: 

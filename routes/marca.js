@@ -8,7 +8,7 @@ const validateMarca = require('../validators/validateMarca');
  * @openapi
  * /marcas/createMarca:
  *  post:
- *      tags: [marca]
+ *      tags: [marcas]
  *      summary: 'Crear una marca.'
  *      requestBody:
  *          requiered: true
@@ -34,7 +34,7 @@ marcaRouter.post('/createMarca', validateMarca, userExtractor, marcaController.r
  * @openapi
  * /marcas/allMarcas:
  *  get:
- *      tags: [marca]
+ *      tags: [marcas]
  *      summary: 'Devuelve todas las marcas'         
  *      responses: 
  *          200: 
@@ -56,7 +56,7 @@ marcaRouter.get('/allMarcas', userExtractor, marcaController.all_marcas);
  * @openapi
  * /marcas/borrarMarca/{id}:
  *  delete:
- *      tags: [marca]
+ *      tags: [marcas]
  *      summary: 'Elimina una marca por el identificador'
  *      parameters: 
  *          - in: path
@@ -88,8 +88,7 @@ marcaRouter.delete('/borrarMarca/:id', userExtractor, marcaController.eliminar_m
  * @openapi
  * /marcas/obtenerMarcas:
  *  get:
- *      tags: 
- *      - marca
+ *      tags: [marcas]
  *      summary: 'Devuelve todas las marcas (publico)'         
  *      responses: 
  *          200: 
@@ -112,7 +111,7 @@ marcaRouter.get('/obtenerMarcas', marcaController.obtener_marcas);
  * @openapi
  * /marcas/borrarSeleccionadosMarca/{idMarcas}:
  *  delete:
- *      tags: [marca]
+ *      tags: [marcas]
  *      summary: 'Elimina varias marcas por el identificador'
  *      parameters: 
  *          - in: path

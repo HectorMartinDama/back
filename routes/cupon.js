@@ -12,7 +12,7 @@ const validateCorrectCupon = require('../validators/validateCorrectCupon');
  * @openapi
  * /cupones/createCupon:
  *  post:
- *      tags: [cupon]
+ *      tags: [cupones]
  *      summary: 'Crear un cupon.'
  *      requestBody:
  *          requiered: true
@@ -43,7 +43,7 @@ cuponRouter.post('/createCupon', validateCupon, userExtractor, cuponController.r
  * @openapi
  * /cupones/allCupones:
  *  get:
- *      tags: [cupon]
+ *      tags: [cupones]
  *      summary: 'Devuelve todos los cupones'         
  *      responses: 
  *          200: 
@@ -67,7 +67,7 @@ cuponRouter.get('/allCupones', userExtractor, cuponController.all_cupones);
  * @openapi
  * /cupones/obtenerCupon/{id}:
  *  get:
- *      tags: [cupon]
+ *      tags: [cupones]
  *      summary: Obtiene un cupon por el identificador
  *      parameters: 
  *          - in: path
@@ -103,7 +103,7 @@ cuponRouter.get('/obtenerCupon/:id', userExtractor, cuponController.obtener_cupo
  * @openapi
  * /cupones/actualizaCupon/{id}:
  *  put:
- *      tags: [cupon]
+ *      tags: [cupones]
  *      summary: Actualiza un cupon por el identificador
  *      parameters: 
  *          - in: path
@@ -140,7 +140,7 @@ cuponRouter.put('/actualizaCupon/:id', validateCupon ,userExtractor, cuponContro
  * @openapi
  * /cupones/borrarCupon/{id}:
  *  delete:
- *      tags: [cupon]
+ *      tags: [cupones]
  *      summary: 'Elimina un cupon por el identificador'
  *      parameters: 
  *          - in: path

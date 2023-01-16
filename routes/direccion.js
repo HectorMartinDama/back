@@ -11,7 +11,7 @@ const validatePrincipalDireccion= require('../validators/validatePrincipalDirecc
  * @openapi
  * /direcciones/registro_direccion:
  *  post:
- *      tags: [direccion]
+ *      tags: [direcciones]
  *      summary: 'Crear una direccion.'
  *      requestBody:
  *          requiered: true
@@ -35,7 +35,7 @@ direccionRouter.post('/registro_direccion', validatePrincipalDireccion, userExtr
  * @openapi
  * /direcciones/obtener_direcciones_cliente/{idCliente}:
  *  get:
- *      tags: [direccion]
+ *      tags: [direcciones]
  *      summary: 'Devuelve todas las direcciones de un cliente'
  *      parameters: 
  *          - in: path
@@ -71,7 +71,7 @@ direccionRouter.get('/obtener_direcciones_cliente/:idCliente', userExtractor, di
  * @openapi
  * /direcciones/cambiar_direccion_principal_cliente/{id}/{idCliente}:
  *  put:
- *      tags: [direccion]
+ *      tags: [direcciones]
  *      summary: Cambia la direccion a principal y vicerversa.
  *      parameters: 
  *          - in: path
@@ -105,7 +105,7 @@ direccionRouter.put('/cambiar_direccion_principal_cliente/:id/:idCliente', userE
  * @openapi
  * /direcciones/obtener_direccion_principal_cliente/{idCliente}:
  *  get:
- *      tags: [direccion]
+ *      tags: [direcciones]
  *      summary: Obtiene la direccion principal del cliente
  *      parameters: 
  *          - in: path
