@@ -163,8 +163,6 @@ cuponRouter.put('/actualizaCupon/:id', validateCupon ,userExtractor, cuponContro
 cuponRouter.delete('/borrarCupon/:id', userExtractor, cuponController.eliminar_cupon);
 
 
-
-
 cuponRouter.get('/validarCupon/:cupon', userExtractor, validateCorrectCupon);
 
 
