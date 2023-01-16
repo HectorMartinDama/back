@@ -52,6 +52,14 @@ const prueba= {
                     imgPerfil: {
                         type: "object"
                     }
+                    },
+                    example: {
+                        nombre: 'Prueba Admin',
+                        apellidos: 'Apellido Prueba1',
+                        email: 'tuemail@gmail.com',
+                        password: 'contraseñaEmcriptada',
+                        telefono: '23454354',
+                        imgPerfil: 'imagendeperfil.png'
                     }
                 },
                 cliente: {
@@ -90,6 +98,16 @@ const prueba= {
                     dni: {
                         type: "string"
                     }
+                    },
+                    example: {
+                        nombre: 'Prueba Cliente',
+                        apellidos: 'Apellido Prueba',
+                        password: 'contraseñaEmcriptada',
+                        f_nacimiento: '2002-12-09',
+                        genero: 'Femenino',
+                        pais: 'España',
+                        telefono: '45345454',
+                        dni: '34543534X'
                     }
                 },
                 carrito: {
@@ -113,6 +131,9 @@ const prueba= {
                     comprado: {
                         type: "date"
                     }
+                    },
+                    example: {
+
                     }
                 },
                 cupon: {
@@ -368,6 +389,20 @@ const prueba= {
                     creado: {
                         type: "date"
                     }
+                    },
+                    example: {
+                        nombre: 'Nike Air Max 90 Terrascape',
+                        marca: 'nike',
+                        tallas: [{talla: '55', stock: '10'}, {talla: '41', stock: '15'}],
+                        sku: '314209667204',
+                        portada: 'l7y7MHiyxUvOzQTJaNYmUhiC.webp',
+                        galeria: ['imagen.png', 'imagen2.png', 'imagen3.png'],
+                        stock: 95,
+                        nventas: 1,
+                        nestrellas: 0,
+                        publicado: true,
+                        creado: '2022-12-24T17:12:30.180+00:00'
+
                     }
                 },
                 venta: {
@@ -416,6 +451,16 @@ const prueba= {
                     creado: {
                         type: "date"
                     }
+                    },
+                    example: {
+                        cliente: '6391dd0578659e85b54cd402',
+                        nventa: '001-000001',
+                        subtotal: 10,
+                        envio: '63b30974faadb22cacb22ccb',
+                        transaccion: 'test',
+                        estado: 'procesando',
+                        direccion: '63b2dc2dde50c3da85958673',
+                        creado: '2023-01-09T09:56:49.182+00:00'
                     }
                 },
                 dventa: {
@@ -447,6 +492,14 @@ const prueba= {
                     creado: {
                         type: "date"
                     }
+                    },
+                    example: {
+                        cliente: '6391dd0578659e85b54cd402',
+                        producto: '63b92e36b3eb06dfcfca9b74',
+                        venta: '63bbe5a5da0f507333e03f3c',
+                        precio: 23,
+                        talla: '54',
+                        creado: '2023-01-09T09:56:49.184+00:00'
                     }
                 },
                 contacto: {
@@ -478,14 +531,26 @@ const prueba= {
                     creado: {
                         type: "date"
                     }
+                    },
+                    example: {
+                        nombre: 'Pepe Torres',
+                        mensaje: 'Proximo lanzamiento',
+                        asunto: 'Hola buenos dias estoy interesado en el nuevo lanzamiento',
+                        email: '"hectormartindama@gmail.com"',
+                        estado: 'Cerrado',
+                        creado: '2023-01-09T11:52:22.622+00:00'
                     }
                 }
             }
         },
         tags: [
             {
-            name: 'admin',
-            description: "Maneja la parte del admin"
+                name: 'admin',
+                description: 'Maneja la parte del admin'
+            },
+            {
+                name: 'clientes',
+                description: 'Usuario autenticados para comprar en la tienda.'
             },
             {
             name: "products",
@@ -518,7 +583,12 @@ const prueba= {
             {
             name: "descuentos",
             description: "Maneja los descuentos de la tienda."
-            }
+            },
+            {
+            name: 'contactos',
+            description: 'Mensajes que cualquier persona puede dejar en la tienda'
+
+            },
         ],
     },
     apis: [`${path.join(__dirname, '../routes/*.js')}`]
